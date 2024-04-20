@@ -21,8 +21,15 @@ class Athena {
         return data
     }
 
-    refetchQueries<T>(url: string, data: T, { variables }: IInfo = {}) {
-        // TO-DO: update cache and rerender web page
+    async refetchQueries<T>(url: string, { variables }: IInfo = {}) {
+        const response = await fetch(url, {
+            method: "GET",
+            body: JSON.stringify(variables),
+        })
+        const data = await response.json()
+
+        cache.set(url, data, { variables })
+        cache.notifySubscribers()
     }
 }
 

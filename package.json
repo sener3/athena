@@ -1,26 +1,30 @@
 {
-  "name": "athena",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "14.2.0",
-    "react": "^18",
-    "react-dom": "^18"
-  },
-  "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "postcss": "^8",
-    "prettier": "2.8.8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  }
+    "name": "athena",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "prisma-generate": "prisma generate --schema=./src/prisma/schema.prisma",
+        "prisma-migrate-dev": "prisma migrate dev --schema=./src/prisma/schema.prisma"
+    },
+    "dependencies": {
+        "next": "14.2.0",
+        "react": "^18",
+        "react-dom": "^18"
+    },
+    "devDependencies": {
+        "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
+        "@prisma/client": "^5.12.1",
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "postcss": "^8",
+        "prettier": "2.8.8",
+        "prisma": "^5.12.1",
+        "tailwindcss": "^3.4.1",
+        "typescript": "^5"
+    }
 }

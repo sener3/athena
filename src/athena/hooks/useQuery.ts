@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
 import athena from ".."
+import cache from "../cache"
 import { IInfo } from "../types"
 
 interface UseQueryReturnType<T> {
@@ -22,15 +23,25 @@ const useQuery = <T>(
     }, [])
 
     const get = async () => {
-        setLoading(true)
+        const fetchData = async () => {
+            setLoading(true)
 
-        try {
-            const athenaData = await athena.query<T>(url, { variables })
-            setData(athenaData)
-        } catch (err: unknown) {
-            setError(err)
-        } finally {
-            setLoading(false)
+            try {
+                const athenaData = await athena.query<T>(url, { variables })
+                setData(athenaData)
+            } catch (err: unknown) {
+                setError(err)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchData()
+
+        cache.subscribe(fetchData)
+
+        return () => {
+            cache.unsubscribe(fetchData)
         }
     }
 

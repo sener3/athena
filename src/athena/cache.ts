@@ -4,6 +4,7 @@ type CacheType = Record<string, string>
 
 class AthenaCache {
     private cache: CacheType = {}
+    private subscribers: ((data: CacheType) => void)[] = []
 
     constructor() {}
 
@@ -33,6 +34,22 @@ class AthenaCache {
         }
 
         return null
+    }
+
+    subscribe(callback: (data: CacheType) => void) {
+        this.subscribers.push(callback)
+    }
+
+    unsubscribe(callback: (data: CacheType) => void) {
+        this.subscribers = this.subscribers.filter(
+            (subscriber) => subscriber !== callback
+        )
+    }
+
+    notifySubscribers() {
+        this.subscribers.forEach((subscriber) => {
+            subscriber(this.cache)
+        })
     }
 }
 
